@@ -87,14 +87,15 @@ def build_optimizer(model: torch.nn.Module, name: str,
         - lagrange_params: parameters of the lagrange multipliers
     """    
     param_groups = {}
-    if not frozen_embedding:
-        main_model_params = [p for n, p in model.named_parameters() if "l0_module" not in n]
-        frozen_params = []
-    else:
-        main_model_params = [p for n, p in model.named_parameters() 
-                             if "l0_module" not in n and '.wte.weight' not in n and '.output.weight' not in n]
+    main_model_params = [p for n, p in model.named_parameters() if "l0_module" not in n]
+
+    # Set requires_grad to False for frozen_params
+    if frozen_embedding:
         frozen_params = [p for n, p in model.named_parameters() 
                              if '.wte.weight' in n or '.output.weight' in n]
+        print(f"Freezing {len(frozen_params)} parameters")
+        for p in frozen_params:
+            p.requires_grad = False
     
     l0_module_params = [p for n, p in model.named_parameters() if "l0_module" in n and "lambda" not in n]
     lagrange_params = [p for n, p in model.named_parameters() if "l0_module" in n and "lambda" in n]
@@ -104,8 +105,7 @@ def build_optimizer(model: torch.nn.Module, name: str,
     lag_lr = pop_config(optimizer_config, "lag_lr")
     if len(l0_module_params) > 0:
         param_groups.extend([{"params": l0_module_params, "lr": lag_lr}, {"params": lagrange_params, "lr": -(lag_lr)}])
-    if len(frozen_params) > 0:
-        param_groups.extend([{"params": frozen_params, "lr": 0}])
+
     for i, group in enumerate(param_groups):
         print(f"Group {i}:", f"{len(group['params'])} tensors", f"{sum(p.numel() for p in group['params'])} params", f"{group['lr']:.2e} lr")
             

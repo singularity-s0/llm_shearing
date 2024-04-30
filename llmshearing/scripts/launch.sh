@@ -1,5 +1,5 @@
 #!/bin/bash
-PROJ_DIR="/remote-home/zyzeng/LLM-Shearing/LLM-Shearing"
+PROJ_DIR=/remote-home/xjzhao/LLM_Shearing/llmshearing
 
 # num_nodes=$(scontrol show job $SLURM_JOB_ID | grep NodeList=della | wc -l)
 num_nodes=$(scontrol show hostnames $SLURM_JOB_NODELIST | wc -l)

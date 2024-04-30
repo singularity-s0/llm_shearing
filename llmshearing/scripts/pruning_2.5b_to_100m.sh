@@ -8,9 +8,9 @@
 # TRAIN_SCRIPT=${PROJ_DIR}/llmshearing/train.py
 # MODEL_PATH=/projects/DANQIC/mengzhou/LLaMA2
 
-PROJ_DIR=/remote-home/zyzeng/LLM-Shearing/LLM-Shearing
+PROJ_DIR=/remote-home/xjzhao/LLM_Shearing/llmshearing
 LAUNCH_SCRIPT=${PROJ_DIR}/llmshearing/scripts/launch.sh
-DATA_DIR=${PROJ_DIR}/data_bin/moss2.5b_sampled/for_prune
+DATA_DIR=/remote-home/share/personal/zyzeng/data/moss2.5b_sampled/for_prune
 OUTPUT_DIR=${PROJ_DIR}/ckpts/
 TRAIN_SCRIPT=${PROJ_DIR}/llmshearing/train.py
 MODEL_PATH=${PROJ_DIR}/ckpts/
@@ -86,8 +86,8 @@ sbatch --job-name ${run_name} \
     --nodes=1 \
     --gpus-per-node=8 \
     --mem=512gb \
-    --output=/remote-home/zyzeng/LLM-Shearing/LLM-Shearing/logs/prune/prune_%A_%a.out \
-    --error=/remote-home/zyzeng/LLM-Shearing/LLM-Shearing/logs/prune/prune_%A_%a.err \
+    --output=/remote-home/xjzhao/LLM_Shearing/logs/prune/prune_%A_%a.out \
+    --error=/remote-home/xjzhao/LLM_Shearing/logs/prune/prune_%A_%a.err \
     $LAUNCH_SCRIPT \
     $config_file \
     run_name=${run_name} \
