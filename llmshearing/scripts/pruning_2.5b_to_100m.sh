@@ -22,7 +22,7 @@ test=False
 from_model=2.5b # source model size
 to_model=100m # target model size
 config_file=${PROJ_DIR}/llmshearing/configs/internlm/${from_model}.yaml
-path=$MODEL_PATH/moss2_2.5b_composer.pt
+path=/remote-home/share/personal/zyzeng/models/moss2_2.5b_composer.pt
 
 # data setup
 data_local=${DATA_DIR}
