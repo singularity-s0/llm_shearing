@@ -32,6 +32,8 @@ from llmshearing.callbacks.pruning_callback import PruningCallback
 from llmshearing.datasets.load_text_dataloader import build_text_dataloader
 from llmshearing.models.model_registry import COMPOSER_MODEL_REGISTRY
 
+import wandb
+
 
 def is_one_hour(run_name: str):
     """ Check if the run name is for one hour training. """
@@ -323,6 +325,11 @@ if __name__ == '__main__':
     save_dir = cfg.save_folder.replace("{run_name}", cfg.run_name)
     os.makedirs(save_dir, exist_ok=True)
     torch.save(cfg, save_dir + "/config.pt") 
+
+    wandb.config = om.to_container(
+        cfg, resolve=True, throw_on_missing=True
+    )
+    wandb.init(project="prune_moss2_2.5b_to_100m", sync_tensorboard=True, group='llm_shearing')
     
     main(cfg)
     
