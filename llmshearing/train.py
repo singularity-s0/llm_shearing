@@ -326,10 +326,11 @@ if __name__ == '__main__':
     os.makedirs(save_dir, exist_ok=True)
     torch.save(cfg, save_dir + "/config.pt") 
 
-    wandb.config = om.to_container(
-        cfg, resolve=True, throw_on_missing=True
-    )
-    wandb.init(project="prune_moss2_2.5b_to_100m", sync_tensorboard=True, group='llm_shearing')
+    if dist.get_local_rank() == 0:
+        wandb.config = om.to_container(
+            cfg, resolve=True, throw_on_missing=True
+        )
+        wandb.init(project="prune_moss2_2.5b_to_100m", sync_tensorboard=True)
     
     main(cfg)
     
