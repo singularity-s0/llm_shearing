@@ -330,6 +330,7 @@ if __name__ == '__main__':
         wandb.config = om.to_container(
             cfg, resolve=True, throw_on_missing=True
         )
+        wandb.tensorboard.patch(root_logdir="tensorboard_dir")
         wandb.init(project="prune_moss2_2.5b_to_100m", sync_tensorboard=True)
     
     main(cfg)
