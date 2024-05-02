@@ -50,12 +50,12 @@ save_dir=${OUTPUT_DIR}/finetune/${run_name}
 # Run with slurm
 sbatch -p moss \
     --job-name ${run_name} \
-    --nodes=6 \
+    --nodes=1 \
     --gpus-per-node=8 \
     --mem=512gb \
     --cpus-per-task=8 \
-    --output=/remote-home/zyzeng/LLM-Shearing/LLM-Shearing/logs/finetune/finetune_%A_%a.out \
-    --error=/remote-home/zyzeng/LLM-Shearing/LLM-Shearing/logs/finetune/finetune_%A_%a.err \
+    --output=/remote-home/xjzhao/LLM_Shearing/logs/continue/continue_%A_%a.out \
+    --error=/remote-home/xjzhao/LLM_Shearing/logs/continue/continue_%A_%a.err \
     $LAUNCH_SCRIPT \
     $config_file \
     run_name=${run_name} \
