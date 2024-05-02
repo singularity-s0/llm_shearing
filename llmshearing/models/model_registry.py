@@ -23,5 +23,6 @@ COMPOSER_MODEL_REGISTRY = {
     'mosaic_llama2_7b': ComposerMosaicLlama,
     'mosaic_llama2_13b': ComposerMosaicLlama,
     'mosaic_together_3b': ComposerMosaicPythia,
-    "mosaic_llama2_2.5b": ComposerMosaicLlama
+    "mosaic_llama2_2.5b": ComposerMosaicLlama,
+    "mosaic_llama2_100m": ComposerMosaicLlama
 }

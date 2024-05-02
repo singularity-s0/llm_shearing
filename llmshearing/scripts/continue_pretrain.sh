@@ -1,18 +1,18 @@
-# pruning internlm2 7b -> 3b or 1.3b
+# pruning moss2 7b -> 3b or 1.3b
 
-PROJ_DIR="/remote-home/zyzeng/LLM-Shearing/LLM-Shearing"
-DATA_DIR=${PROJ_DIR}/data_bin/moss_sampled/for_ft
+PROJ_DIR="/remote-home/xjzhao/LLM_Shearing/llmshearing"
+DATA_DIR=/remote-home/share/personal/zyzeng/data/moss2.5b_sampled/for_prune
 OUTPUT_DIR=${PROJ_DIR}/ckpts/
 LAUNCH_SCRIPT=${PROJ_DIR}/llmshearing/scripts/launch.sh
 TRAIN_SCRIPT=${PROJ_DIR}/llmshearing/train.py
 
 test=True
 
-model=1.3b # target model size
+model=100m # target model size
 config_file=${PROJ_DIR}/llmshearing/configs/internlm/${model}.yaml
-prune_run_name=internlm2_7b_pruning_scaling_constant_to${model}_sl4096
+prune_run_name=continue_pretrain_${model}_sl4096
 # path=${OUTPUT_DIR}/${prune_run_name}/pruned-latest-rank0.pt # path to the 
-path=${OUTPUT_DIR}/internlm_7b_pruning_scaling_constant_to1.3b_sl4096_v3/pruned-latest-rank0.pt
+path=${OUTPUT_DIR}/moss_2.5b_pruning_scaling_constant_to100m_sl4096_run0/latest-rank0.pt
 
 # data setup
 data_local=${DATA_DIR}
@@ -36,7 +36,7 @@ proportion=[0.0038885832078429925,0.013171063389765087,6.913036813943098e-06,0.1
 # doremi: update weights with exponential descent
 # constant: keep the weights constant
 update_type=constant
-target_loss=[1.911728024482727,2.537081480026245,2.5637736320495605,2.378246545791626,2.9725301265716553,1.298712968826294,1.756330966949463,1.9188456535339355,2.548388957977295,1.7937837839126587] # 410m predicted loss from scaling law
+target_loss=[1.2465803623199463,3.0522592067718506,2.5978455543518066,2.5219357013702393,3.025589942932129,1.0684151649475098,2.2368016242980957,1.7007801532745361,2.288639783859253,1.634076714515686] # 410m predicted loss from scaling law
 
 eval_split_name=eval_merge # eval on all domains
 eval_interval=400ba # eval every 50 batches and update the loading proportion
