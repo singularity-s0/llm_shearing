@@ -76,6 +76,10 @@ def construct_hf_config(model_config: om = None):
         hf_model_name = "meta-llama/Llama-2-7b-hf"
         tokenzier_name = "meta-llama/Llama-2-7b-hf"
         config = AutoConfig.from_pretrained(hf_model_name)
+    elif model_class == "Moss2ForCausalLM":
+        hf_model_name = "/remote-home/share/models/moss2-2_5b-hf/"
+        tokenzier_name = "/remote-home/share/models/moss2-2_5b-hf/"
+        config = AutoConfig.from_pretrained(hf_model_name, trust_remote_code=True)
         
     for key in model_config:
         setattr(config, key, model_config[key])
@@ -94,12 +98,12 @@ def save_composer_to_hf(composer_model_path, output_path=None, model_config:om =
     hf_weights = {keymap[key]: weights[key] for key in weights if "rotary" not in key}
     config, tokenizer_nanme = construct_hf_config(model_config)
 
-    model = AutoModelForCausalLM.from_config(config)
+    model = AutoModelForCausalLM.from_config(config, trust_remote_code=True)
     model.load_state_dict(hf_weights, strict=False)
     model = model.bfloat16()
     model.save_pretrained(output_path, dtype=torch.float16)
     
-    tokenizer = AutoTokenizer.from_pretrained(tokenizer_nanme)
+    tokenizer = AutoTokenizer.from_pretrained(tokenizer_nanme, trust_remote_code=True)
     tokenizer.save_pretrained(output_path)
     
     print(f"saved hf model to {output_path}")
