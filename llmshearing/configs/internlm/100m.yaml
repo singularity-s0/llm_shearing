@@ -1,4 +1,4 @@
-data_local: /remote-home/share/personal/zyzeng/data/moss2.5b_sampled/for_prune
+data_local: /remote-home/share/personal/zyzeng/data/moss2.5b_sampled/for_ft
 data_remote: # If blank, files must be present in data_local
 tokenizer_name: /remote-home/share/models/moss2-2_5b-hf/
 max_seq_len: 4096

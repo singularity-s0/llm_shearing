@@ -1,7 +1,7 @@
 # pruning moss2 7b -> 3b or 1.3b
 
 PROJ_DIR="/remote-home/xjzhao/LLM_Shearing/llmshearing"
-DATA_DIR=/remote-home/share/personal/zyzeng/data/moss2.5b_sampled/for_prune
+DATA_DIR=/remote-home/share/personal/zyzeng/data/moss2.5b_sampled/for_ft
 OUTPUT_DIR=${PROJ_DIR}/ckpts/
 LAUNCH_SCRIPT=${PROJ_DIR}/llmshearing/scripts/launch.sh
 TRAIN_SCRIPT=${PROJ_DIR}/llmshearing/train.py
