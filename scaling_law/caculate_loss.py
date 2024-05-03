@@ -112,7 +112,7 @@ if __name__=='__main__':
                             max_seq_len=4096,
                             num_canonical_nodes=100)
         
-        print('processing domain {}'.format(domain))
+        print('domain {}, length {}'.format(domain, len(dataset)))
 
         texts = [internlm_tokenizer.decode(d['input_ids'].tolist()) for d in dataset]
         loss = model.get_loss_of_batch(texts)
