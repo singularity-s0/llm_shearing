@@ -1,0 +1,3 @@
+MODEL_DIR=/remote-home/xjzhao/LLM_Shearing/llmshearing/ckpts/moss_2.5b_pruning_scaling_constant_to100m_sl4096_no_freeze_emb
+MODEL_PATH=$MODEL_DIR/latest-rank0.pt
+python3 -m llmshearing.utils.post_pruning_processing prune_and_save_model $MODEL_PATH
