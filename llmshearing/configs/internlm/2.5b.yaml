@@ -97,7 +97,7 @@ precision: amp_bf16
 
 # FSDP
 fsdp_config:
-  use_orig_params: true
+  # use_orig_params: true
   sharding_strategy: FULL_SHARD
   mixed_precision: DEFAULT
   activation_checkpointing: true
@@ -130,4 +130,5 @@ loggers:
 save_interval: 800ba 
 save_folder: save_dir 
 
-frozen_embedding: true
+# frozen_embedding: true
+frozen_embedding: false

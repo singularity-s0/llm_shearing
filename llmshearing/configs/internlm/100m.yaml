@@ -97,7 +97,6 @@ precision: amp_bf16
 
 # FSDP
 fsdp_config:
-  use_orig_params: true
   sharding_strategy: FULL_SHARD
   mixed_precision: DEFAULT
   activation_checkpointing: true
@@ -128,6 +127,6 @@ loggers:
 
 # Checkpoint to local filesystem or remote object store
 save_interval: 800ba 
-save_folder: save_dir 
+save_folder: save_dir
 
-frozen_embedding: true
+frozen_embedding: false
