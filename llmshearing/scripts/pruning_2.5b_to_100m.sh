@@ -70,7 +70,7 @@ elif [[ $to_model == 2.7b ]]; then
 elif [[ $to_model == 370m ]]; then
     target_d_model=1024; target_n_heads=8; target_n_layers=24; target_intermediate_size=2816; target_vocab_size=92544
 elif [[ $to_model == 100m ]]; then
-    target_d_model=1024; target_n_heads=16; target_n_layers=5; target_intermediate_size=4096; target_vocab_size=137728
+    target_d_model=1024; target_n_heads=8; target_n_layers=5; target_intermediate_size=4096; target_vocab_size=137728
 fi
 # save directroy
 run_name=moss_${from_model}_pruning_scaling_${update_type}_to${to_model}_sl${max_seq_len}
