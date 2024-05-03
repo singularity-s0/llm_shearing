@@ -12,7 +12,7 @@ model=100m # target model size
 config_file=${PROJ_DIR}/llmshearing/configs/internlm/${model}.yaml
 prune_run_name=continue_pretrain_${model}_sl4096
 # path=${OUTPUT_DIR}/${prune_run_name}/pruned-latest-rank0.pt # path to the 
-path=${OUTPUT_DIR}/moss_2.5b_pruning_scaling_constant_to100m_sl4096_run0/latest-rank0.pt
+path=${OUTPUT_DIR}/moss_2.5b_pruning_scaling_constant_to100m_sl4096_run0/pruned-latest-rank0.pt
 
 # data setup
 data_local=${DATA_DIR}

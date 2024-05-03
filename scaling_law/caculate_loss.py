@@ -63,9 +63,6 @@ class ComposerModel(HFModel):
             cfg = om.load(f)
 
         composer_model = ComposerMosaicLlama(cfg.model)
-        for n,p in composer_model.named_parameters():
-            print(n)
-        exit()
         # rotary_emb.inv_freq can be missing
         composer_model.load_state_dict(torch.load(self.model_path), strict=False)
         self.model = composer_model.to(self.device)
@@ -75,6 +72,8 @@ class ComposerModel(HFModel):
         with torch.no_grad():
             with autocast():
                 tokenized = self.tokenizer.encode(text, bos=False, eos=False)
+                # max len 4096
+                tokenized = tokenized[:min(len(tokenized), 4096)]
                 if torch.cuda.device_count() > 0:
                     tokenized = torch.tensor(tokenized).unsqueeze(dim=0).to(self.device)
                 batch = {"input_ids": tokenized, "labels": tokenized}
@@ -89,7 +88,7 @@ if __name__=='__main__':
     parser.add_argument("--cfg_path", type=str, default=None)
     args = parser.parse_args()
 
-    data_path = "/remote-home/zyzeng/LLM-Shearing/LLM-Shearing/data_bin/moss_sampled/eval/"
+    data_path = "/remote-home/share/personal/zyzeng/data/moss2.5b_sampled/eval/"
 
     if args.model_type == 'hf':
         model = HFModel(args.model_path, args.tokenizer_path)
@@ -101,8 +100,10 @@ if __name__=='__main__':
     
     model.load()
 
-    internlm_tokenizer = AutoTokenizer.from_pretrained("/remote-home/zyzeng/LLM-Shearing/LLM-Shearing/ckpts/mha_internlm2_hf/", trust_remote_code=True)
+    internlm_tokenizer = AutoTokenizer.from_pretrained("/remote-home/share/models/moss2-2_5b-hf/", trust_remote_code=True)
     domains = ("arxiv","cn_baike","cn_book","cn_weixin","cn_zhihu","code_starcoder","en_book","en_stackexchange","wanjuan","wiki")
+    print("Begin Eval")
+
     for domain in domains:
         dataset = TextStreamingDataset(local=data_path,
                             split=domain,
