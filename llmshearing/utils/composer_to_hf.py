@@ -77,9 +77,12 @@ def construct_hf_config(model_config: om = None):
         tokenzier_name = "meta-llama/Llama-2-7b-hf"
         config = AutoConfig.from_pretrained(hf_model_name)
     elif model_class == "Moss2ForCausalLM":
-        hf_model_name = "/remote-home/share/models/moss2-2_5b-hf/"
+        hf_model_name = "meta-llama/Llama-2-7b-hf"
         tokenzier_name = "/remote-home/share/models/moss2-2_5b-hf/"
         config = AutoConfig.from_pretrained(hf_model_name, trust_remote_code=True)
+        config.vocab_size = 137728
+        config.max_position_embeddings = 32768
+        config.rope_theta = 1000000
         
     for key in model_config:
         setattr(config, key, model_config[key])
