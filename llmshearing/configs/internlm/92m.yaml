@@ -1,20 +1,20 @@
-data_local: /remote-home/share/personal/zyzeng/data/moss2.5b_sampled/for_prune
+data_local: /remote-home/share/personal/zyzeng/data/moss2.5b_sampled/for_ft
 data_remote: # If blank, files must be present in data_local
 tokenizer_name: /remote-home/share/models/moss2-2_5b-hf/
-max_seq_len: 32768
+max_seq_len: 4096
 global_seed: 17
 
 # Run Name
 run_name: # If left blank, will be read from env var $COMPOSER_RUN_NAME
 
 model:
-  name: mosaic_llama2_2.5b
+  name: mosaic_llama2_92m
   init_device: "cpu" 
   tokenizer_name: ${tokenizer_name}
   d_model: 2048
-  n_heads: 16
-  n_layers: 32 
-  intermediate_size: 8192
+  n_heads: 8
+  n_layers: 4
+  intermediate_size: 1024
   max_seq_len: ${max_seq_len}
   max_position_embeddings: 32768
   rope_theta: 1000000 
@@ -128,6 +128,6 @@ loggers:
 
 # Checkpoint to local filesystem or remote object store
 save_interval: 800ba 
-save_folder: save_dir 
+save_folder: save_dir
 
 frozen_embedding: true
